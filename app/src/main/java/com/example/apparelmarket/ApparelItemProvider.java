@@ -16,19 +16,19 @@ public class ApparelItemProvider {
             R.drawable.b008,R.drawable.b009};
 
 
-    public static ArrayList<ApparelItem> generateData() {
-        ArrayList<ApparelItem>  apparelItemslist = new ArrayList<ApparelItem>();
+    public static ArrayList<apparelItem> generateData() {
+        ArrayList<apparelItem>  apparelItemslist = new ArrayList<apparelItem>();
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             String idIN = ids[i];
             String itemNameIN = itemnames[i];
             String itemCategoryIN = itemCategorynames[i];
             String itemPriceIN = itemPricetags[i];
-            String itemDescriptionIN; = "Epic product please buy"
+            String itemDescriptionIN = "Epic product please buy";
             int itemImageIN = itemImageaddrs[i];
 
-            ApparelItem ApparelItemIN = new ApparelItem(idIN,itemNameIN,itemDescriptionIN,itemCategoryIN, itemPriceIN, itemImageIN);
+            apparelItem ApparelItemIN = new apparelItem(idIN,itemNameIN,itemDescriptionIN,itemCategoryIN, itemPriceIN, itemImageIN);
             apparelItemslist.add(ApparelItemIN);
         }
         return apparelItemslist;

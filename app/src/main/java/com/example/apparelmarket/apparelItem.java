@@ -1,7 +1,7 @@
 package com.example.apparelmarket;
 import java.io.Serializable;
 
-public class ApparelItem implements Serializable{
+public class apparelItem implements Serializable{
     private String id;
     private String itemName;
     private String itemDescription;
@@ -9,7 +9,7 @@ public class ApparelItem implements Serializable{
     private String itemCategory;
     private int itemImage;
 
-    public ApparelItem(String id, String itemName, String itemDescription,String itemCategory,String itemPrice, int itemImage){
+    public apparelItem(String id, String itemName, String itemDescription,String itemCategory,String itemPrice, int itemImage){
         this.id = id;
         this.itemName = itemName;
         this.itemDescription = itemDescription;

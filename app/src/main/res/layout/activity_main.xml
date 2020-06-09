@@ -32,7 +32,7 @@
                 <ImageView
                     style="@style/TopPicksImage"
                     android:id="@+id/image_top_picks_1"
-                    android:src="@drawable/adidas_yeezy"/>
+                    android:src="@drawable/b001"/>
                 <TextView
                     style="@style/TopPicksText"
                     android:id="@+id/text_top_picks_1"
@@ -51,7 +51,7 @@
                 <ImageView
                     style="@style/TopPicksImage"
                     android:id="@+id/image_top_picks_2"
-                    android:src="@drawable/adidas_yeezy"/>
+                    android:src="@drawable/b001"/>
                 <TextView
                     style="@style/TopPicksText"
                     android:id="@+id/text_top_picks_2"
@@ -70,7 +70,7 @@
                 <ImageView
                     style="@style/TopPicksImage"
                     android:id="@+id/image_top_picks_3"
-                    android:src="@drawable/adidas_yeezy"/>
+                    android:src="@drawable/b001"/>
                 <TextView
                     style="@style/TopPicksText"
                     android:id="@+id/text_top_picks_3"
@@ -80,93 +80,13 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <LinearLayout
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_marginHorizontal="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/listall">
+    </ListView>
 
-        <androidx.cardview.widget.CardView
-            style="@style/CategoryCard"
-            app:cardCornerRadius="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/adidas_yeezy"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Shoes and Sneakers"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            style="@style/CategoryCard"
-            app:cardCornerRadius="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/adidas_yeezy"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Shoes and Sneakers"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            style="@style/CategoryCard"
-            app:cardCornerRadius="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/adidas_yeezy"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Shoes and Sneakers"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
 </LinearLayout>
