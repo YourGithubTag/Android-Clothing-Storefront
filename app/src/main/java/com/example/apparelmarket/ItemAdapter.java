@@ -8,43 +8,48 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+
 import java.util.ArrayList;
 
-public class ItemAdapter extends ArrayAdapter<apparelItem> {
-    private static class ViewHolder{
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.itemViewHolder> {
+    private ArrayList<apparelItem> listofitems;
+
+    public static class itemViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivImage;
         public TextView  tvName;
+
+        public itemViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ivImage = itemView.findViewById(R.id.listitemimage);
+            tvName = itemView.findViewById(R.id.listitemname);
+        }
     }
-    public ItemAdapter(Context context, ArrayList<apparelItem> items){
-        super(context, 0, items);
+
+    @NonNull
+    @Override
+    public itemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlistview, parent, false);
+        itemViewHolder itemviews = new itemViewHolder(v);
+        return itemviews;
+    }
+
+    public ItemAdapter(ArrayList<apparelItem> list) {
+        listofitems = list;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public void onBindViewHolder(@NonNull itemViewHolder holder, int position) {
+        apparelItem currentItem = listofitems.get(position);
 
-        //get the data item for this position
-        final apparelItem appitem = getItem(position);
-
-        //check if an existing view is being reused, otherwise inflate the view
-        ViewHolder viewHolder;
-
-        if (convertView == null){
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.itemlistview,parent,false);
-            viewHolder.ivImage = (ImageView)convertView.findViewById(R.id.listitemimage);
-            viewHolder.tvName = (TextView)convertView.findViewById(R.id.listitemname);
-            convertView.setTag(viewHolder);
-        } else{
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        //Populate the data into the template view using the data object
-        viewHolder.tvName.setText(appitem.getName());
-        int resID = appitem.getitemImage();
-        viewHolder.ivImage.setImageResource(resID);
-
-        return convertView;
+        holder.ivImage.setImageResource(currentItem.getitemImage());
+        holder.tvName.setText(currentItem.getName());
     }
 
+    @Override
+    public int getItemCount() {
+        return listofitems.size();
+    }
 }

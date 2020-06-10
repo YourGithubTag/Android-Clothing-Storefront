@@ -1,7 +1,7 @@
 package com.example.apparelmarket;
 import java.io.Serializable;
 
-public class apparelItem implements Serializable{
+public class apparelItem {
     private String id;
     private String itemName;
     private String itemDescription;
