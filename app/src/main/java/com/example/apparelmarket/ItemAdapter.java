@@ -16,15 +16,36 @@ import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.itemViewHolder> {
     private ArrayList<apparelItem> listofitems;
+    private OnItemClickListener clickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListner(OnItemClickListener listener) {
+        clickListener = listener;
+    }
 
     public static class itemViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivImage;
         public TextView  tvName;
 
-        public itemViewHolder(@NonNull View itemView) {
+        public itemViewHolder(@NonNull View itemView, final OnItemClickListener passed) {
             super(itemView);
             ivImage = itemView.findViewById(R.id.listitemimage);
             tvName = itemView.findViewById(R.id.listitemname);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (passed != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            passed.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -32,7 +53,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.itemViewHolder
     @Override
     public itemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlistview, parent, false);
-        itemViewHolder itemviews = new itemViewHolder(v);
+        itemViewHolder itemviews = new itemViewHolder(v, clickListener);
         return itemviews;
     }
 

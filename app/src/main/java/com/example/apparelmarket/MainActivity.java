@@ -22,13 +22,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String item_DETAIL_KEY = "item";
+
     RecyclerView itemslistview;
     ItemAdapter itemAdapter;
-    RecyclerView.Adapter mAdapter;
     ArrayList<apparelItem> apparelitems;
 
     @Override
@@ -44,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
         itemslistview.setLayoutManager(lm);
         itemslistview.setAdapter(itemAdapter);
 
+        itemAdapter.setOnItemClickListner(new ItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                apparelitems.get(position).changetext1("Clicked");
+                itemAdapter.notifyItemChanged(position);
+            }
+        });
 
     }
 }
