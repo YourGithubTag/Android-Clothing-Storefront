@@ -27,7 +27,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String item_DETAIL_KEY = "item";
+    public static final String ITEM_DETAIL_KEY = "item";
 
     RecyclerView itemslistview;
     ItemAdapter itemAdapter;
@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 apparelitems.get(position).changetext1("Clicked");
                 itemAdapter.notifyItemChanged(position);
+
+                Intent intent = new Intent(MainActivity.this, item_detail.class);
+                intent.putExtra(ITEM_DETAIL_KEY, apparelitems.get(position));
+                startActivity(intent);
             }
         });
 

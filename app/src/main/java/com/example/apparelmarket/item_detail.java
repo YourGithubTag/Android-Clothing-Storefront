@@ -21,20 +21,16 @@ public class item_detail extends AppCompatActivity {
         description = (TextView) findViewById(R.id.descriptionview);
         category = (TextView) findViewById(R.id.categoryview);
 
-        Intent thisIntent = getIntent();
+        Intent incoming = getIntent();
         // Use the book to populate the data into our views
-        apparelItem item = (apparelItem) thisIntent.getSerializableExtra(MainActivity.item_DETAIL_KEY);
-        renderItem(item);
-    }
-
-    private void renderItem (apparelItem item) {
-        this.setTitle(item.getName());
+        apparelItem item = (apparelItem) incoming.getSerializableExtra(MainActivity.ITEM_DETAIL_KEY);
 
         description.setText(item.getDescription());
         category.setText(item.getCategory());
         int resID = item.getitemImage();
         imagecover.setImageResource(resID);
     }
+
 
 
 }
