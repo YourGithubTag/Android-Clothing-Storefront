@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String ITEM_DETAIL_KEY = "item";
 
     RecyclerView itemslistview;
+    TextView    searchbutton;
     ItemAdapter itemAdapter;
     ArrayList<apparelItem> apparelitems;
 
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         itemslistview.setLayoutManager(lm);
         itemslistview.setAdapter(itemAdapter);
 
+
+
         itemAdapter.setOnItemClickListner(new ItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -58,9 +62,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        
-
-
+        searchbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra(ITEM_DETAIL_KEY, apparelitems);
+                startActivity(intent);
+            }
+        });
 
     }
 }
