@@ -1,7 +1,8 @@
 package com.example.apparelmarket;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ApparelItemProvider {
+public class ApparelItemProvider implements Serializable {
     static String[] itemnames = {"Yeezies", "Louis V", "Fortnite Shirt","Light Up Shoes", "Tapout Vest", "Fedora", "Cargo Shorts", "Neckbeard",
             "Ahegao Shirt"};
 

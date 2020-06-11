@@ -1,4 +1,6 @@
 package com.example.apparelmarket;
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class apparelItem implements Serializable{
@@ -40,4 +42,11 @@ public class apparelItem implements Serializable{
     public void changetext1(String text) {
         itemName = text;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return itemName;
+    }
+
 }
