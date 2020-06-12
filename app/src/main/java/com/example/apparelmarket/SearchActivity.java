@@ -25,7 +25,7 @@ public class SearchActivity extends AppCompatActivity {
 
         setContentView(R.layout.searchactivity);
 
-        Searchapparelitems = ApparelItemProvider.generateData();
+        ApparelItemProvider.generateData();
 
         Intent intent = getIntent();
         String query = intent.getStringExtra(MainActivity.ITEM_DETAIL_KEY);

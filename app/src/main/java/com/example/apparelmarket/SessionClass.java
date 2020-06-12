@@ -7,7 +7,7 @@ import java.util.Comparator;
 public class SessionClass {
    static ArrayList<apparelItem> toppickarray;
 
-    public static ArrayList<apparelItem> largestthree(ArrayList<apparelItem> arr) {
+    public static void largestthree(ArrayList<apparelItem> arr) {
         Collections.sort(arr, new Comparator<apparelItem>() {
             @Override
             public int compare(apparelItem o1, apparelItem o2) {

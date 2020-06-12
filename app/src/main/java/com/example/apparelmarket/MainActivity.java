@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
-        apparelitems = ApparelItemProvider.generateData();
+        ApparelItemProvider.generateData();
 
-        itemAdapter = new ItemAdapter(apparelitems);
+        itemAdapter = new ItemAdapter(ApparelItemProvider.apparelItemslist);
         searchbutton = (TextView) findViewById(R.id.text_top_picks);
         itemslistview = (RecyclerView) findViewById(R.id.listall);
         itemslistview.setLayoutManager(lm);
@@ -78,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        SessionClass.largestthree(apparelitems);
+        SessionClass.largestthree(ApparelItemProvider.apparelItemslist);
         toppicksRecycle = (RecyclerView) findViewById(R.id.toppicksRecycle);
+        topadapter = new TopPicksAdapter(SessionClass.toppickarray);
 
     }
 
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
+        SessionClass.largestthree(ApparelItemProvider.apparelItemslist);
+        topadapter.notifyDataSetChanged();
     }
 }

@@ -1,8 +1,10 @@
 package com.example.apparelmarket;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
-public class ApparelItemProvider implements Serializable {
+public class ApparelItemProvider {
+    public static ArrayList<apparelItem> apparelItemslist ;
+
     static String[] itemnames = {"Yeezies", "Louis V", "Fortnite Shirt","Light Up Shoes", "Tapout Vest", "Fedora", "Cargo Shorts", "Neckbeard",
             "Ahegao Shirt"};
 
@@ -18,10 +20,7 @@ public class ApparelItemProvider implements Serializable {
 
     static int[] viecountarray = {2,4,2,2,3,3,1,3,2};
 
-    public static ArrayList<apparelItem> generateData() {
-        ArrayList<apparelItem>  apparelItemslist = new ArrayList<apparelItem>();
-
-
+    public static void generateData() {
         for (int i = 0; i < 9; i++) {
             String idIN = ids[i];
             String itemNameIN = itemnames[i];
@@ -31,10 +30,9 @@ public class ApparelItemProvider implements Serializable {
             int itemImageIN = itemImageaddrs[i];
             int viewcountin = viecountarray[i];
 
-            apparelItem ApparelItemIN = new apparelItem(idIN,itemNameIN,itemDescriptionIN,itemCategoryIN, itemPriceIN, itemImageIN, viewcountin);
+            apparelItem ApparelItemIN = new apparelItem(idIN, itemNameIN, itemDescriptionIN, itemCategoryIN, itemPriceIN, itemImageIN, viewcountin);
             apparelItemslist.add(ApparelItemIN);
         }
-        return apparelItemslist;
     }
 
 }
