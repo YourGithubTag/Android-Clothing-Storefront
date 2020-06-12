@@ -1,34 +1,59 @@
 package com.example.apparelmarket;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
-import androidx.annotation.Nullable;
+import android.widget.ListView;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import java.util.ArrayList;
 
 
 public class SearchActivity extends AppCompatActivity {
-    RecyclerView itemslistview;
-    ItemAdapter itemAdapter;
-    ArrayList<apparelItem> apparelitems;
+    ListView itemslistview;
+    SearchItemAdapter searchitemAdapter;
+    ArrayList<apparelItem> Searchapparelitems;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.searchactivity);
+
+        Searchapparelitems = ApparelItemProvider.generateData();
+
+        Intent intent = getIntent();
+        String query = intent.getStringExtra(MainActivity.ITEM_DETAIL_KEY);
+        Searchapparelitems = Searchclass.searchFunction(query, Searchapparelitems);
+        /*if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Searchapparelitems = Searchclass.searchFunction(query, Searchapparelitems);
+        }*/
+
         LinearLayoutManager lm = new LinearLayoutManager(this);
 
-        itemAdapter = new ItemAdapter(apparelitems);
-        itemslistview = (RecyclerView) findViewById(R.id.listall);
-        itemslistview.setLayoutManager(lm);
-        itemslistview.setAdapter(itemAdapter);
+        searchitemAdapter = new SearchItemAdapter(this, Searchapparelitems);
+        itemslistview = (ListView) findViewById(R.id.searchview);
+        itemslistview.setAdapter(searchitemAdapter);
 
+        /*itemAdapter.setOnItemClickListner(new ItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(SearchActivity.this, item_detail.class);
+                intent.putExtra(MainActivity.ITEM_DETAIL_KEY, Searchapparelitems.get(position));
+                startActivity(intent);
+            }
+        });*/
 
-
+        //Intent incoming = getIntent();
+        // Use the book to populate the data into our views
+        //apparelitems = (ArrayList<apparelItem>) incoming.getSerializableExtra(MainActivity.ITEM_DETAIL_KEY);
+        //apparelitems = Searchclass.searchFunction("fortnite",apparelitems);
 
     }
 

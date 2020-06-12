@@ -15,26 +15,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.itemViewHolder> {
+public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.TopPickitemViewHolder> {
+
     private ArrayList<apparelItem> listofitems;
-    private OnItemClickListener clickListener;
+    private TopPicksAdapter.OnItemClickListener clickListener;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListner(OnItemClickListener listener) {
+    public void setOnItemClickListner(TopPicksAdapter.OnItemClickListener listener) {
         clickListener = listener;
     }
 
-    public static class itemViewHolder extends RecyclerView.ViewHolder{
+    public static class TopPickitemViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivImage;
         public TextView  tvName;
 
-        public itemViewHolder(@NonNull View itemView, final OnItemClickListener passed) {
+        public TopPickitemViewHolder(@NonNull View itemView, final TopPicksAdapter.OnItemClickListener passed) {
             super(itemView);
-            ivImage = itemView.findViewById(R.id.listitemimage);
-            tvName = itemView.findViewById(R.id.listitemname);
+            ivImage = itemView.findViewById(R.id.image_top_picks);
+            tvName = itemView.findViewById(R.id.text_top_picks);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -52,18 +53,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.itemViewHolder
 
     @NonNull
     @Override
-    public itemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TopPicksAdapter.TopPickitemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlistview, parent, false);
-        itemViewHolder itemviews = new itemViewHolder(v, clickListener);
+        TopPicksAdapter.TopPickitemViewHolder itemviews = new TopPicksAdapter.TopPickitemViewHolder(v, clickListener);
         return itemviews;
     }
 
-    public ItemAdapter(ArrayList<apparelItem> list) {
+    public TopPicksAdapter(ArrayList<apparelItem> list) {
         listofitems = list;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull itemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TopPicksAdapter.TopPickitemViewHolder holder, int position) {
         apparelItem currentItem = listofitems.get(position);
 
         holder.ivImage.setImageResource(currentItem.getitemImage());
@@ -74,4 +75,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.itemViewHolder
     public int getItemCount() {
         return listofitems.size();
     }
+
+
+
+
 }

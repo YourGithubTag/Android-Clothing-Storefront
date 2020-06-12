@@ -7,6 +7,9 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
     ItemAdapter itemAdapter;
     ArrayList<apparelItem> apparelitems;
 
+    RecyclerView toppicksRecycle;
+    ArrayList<apparelItem> toppickarray;
+    TopPicksAdapter topadapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +52,10 @@ public class MainActivity extends AppCompatActivity {
         apparelitems = ApparelItemProvider.generateData();
 
         itemAdapter = new ItemAdapter(apparelitems);
+        searchbutton = (TextView) findViewById(R.id.text_top_picks);
         itemslistview = (RecyclerView) findViewById(R.id.listall);
         itemslistview.setLayoutManager(lm);
         itemslistview.setAdapter(itemAdapter);
-
-
 
         itemAdapter.setOnItemClickListner(new ItemAdapter.OnItemClickListener() {
             @Override
@@ -70,6 +77,55 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        SessionClass.largestthree(apparelitems);
+        toppicksRecycle = (RecyclerView) findViewById(R.id.toppicksRecycle);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+       /* SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchActivity.class)));
+        searchView.setQueryHint("epic");
+        return true;*/
+
+        //this might work if we just launch an intent here!!!
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                // Reset SearchView
+                searchView.clearFocus();
+                searchView.setQuery("", false);
+                searchView.setIconified(true);
+                searchItem.collapseActionView();
+
+                //complete SearchActivity by yourself
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra(ITEM_DETAIL_KEY, query);
+                startActivity(intent);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
 
     }
 }
