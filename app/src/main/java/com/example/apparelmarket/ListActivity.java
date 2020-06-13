@@ -2,28 +2,33 @@ package com.example.apparelmarket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ClipData;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.apparelmarket.models.ApparelItem;
 import com.example.apparelmarket.models.ApparelProvider;
 import com.example.apparelmarket.models.ItemAdapter;
 import com.example.apparelmarket.models.SearchClass;
+import com.synnapps.carouselview.CarouselView;
+
 
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
 
-    // Pulling together ItemAdapter and initialising the custom Layout XML with all the books.
     public static final String ITEM_DETAIL_KEY = "item";
-    // From activity_list.xml
     ListView lvItems;
-    // From Adapter extending ArrayAdapter
     ItemAdapter itemAdapter;
+
+    private TextView tvItemName;
+    private TextView tvItemPrice;
+    private CarouselView carouselView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +37,41 @@ public class ListActivity extends AppCompatActivity {
 
         // ListView from activity_list.xml
         lvItems = (ListView) findViewById(R.id.lvItems);
+        tvItemName = (TextView) findViewById(R.id.tvItemName);
+        tvItemPrice = (TextView) findViewById(R.id.tvItemPrice);
+        carouselView = (CarouselView) findViewById(R.id.carouselView);
 
+        // Gets the intent and Query sent from MainActivity.
         Intent thisIntent = getIntent();
-
-
-        // Intent passes a query
         String query =  thisIntent.getStringExtra(MainActivity.ITEM_DETAIL_KEY);
-        //Query is used to generate the array
-        ArrayList<ApparelItem> categoryItems = SearchClass.searchFunction(query, ApparelProvider.dataArray);
-        // Sets the adapter for the ListView for items in specified category.
-        itemAdapter = new ItemAdapter(this, categoryItems);
+        // Query is used to generate the appropriate array of ApparelItems.
+        ArrayList<ApparelItem> queriedItems = SearchClass.searchFunction(query, ApparelProvider.generateData());
+        // Sets the adapter for ListActivity allowing for appropriate results to be displayed.
+        itemAdapter = new ItemAdapter(this, queriedItems);
         lvItems.setAdapter(itemAdapter);
 
-        if (!(categoryItems.get(0).getId() == "null")) {
+        // Items when clicked in ListActivity proceed to DetailsActivity if items were displayed in ListAcitivty.
+        if (!(queriedItems.get(0).getId() == "null")) {
             setupItemSelectedListener();
         }
     }
 
+    // Sends an item's data from ListActivity to DetailsActivity for further use.
     public void setupItemSelectedListener() {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListActivity.this, DetailsActivity.class);
                 // Sending Data
-                intent.putExtra(ITEM_DETAIL_KEY, itemAdapter.getItem(position).getId());
+                intent.putExtra(ITEM_DETAIL_KEY, itemAdapter.getItem(position));
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

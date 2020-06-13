@@ -8,11 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.apparelmarket.models.ApparelItem;
-import com.example.apparelmarket.models.ApparelProvider;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
-
-import org.w3c.dom.Text;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -33,17 +30,16 @@ public class DetailsActivity extends AppCompatActivity {
         tvItemDetail = (TextView) findViewById(R.id.tvItemDetail);
         tvItemViews = (TextView) findViewById(R.id.tvItemViews);
 
+        // Retrieves data from the intent sent from ListActivity.
         Intent incomingItem = getIntent();
-        // Populates data into view. Retrieves from the intent.
-        String incomingitemString =  incomingItem.getStringExtra(MainActivity.ITEM_DETAIL_KEY);
-        ApparelItem item = ApparelProvider.dataArray.get((Integer.parseInt(incomingitemString)) - 1);
+        ApparelItem item =  (ApparelItem) incomingItem.getSerializableExtra(MainActivity.ITEM_DETAIL_KEY);
 
+        // Appropriate Views are updated accordingly.
         tvItemName.setText(item.getName());
         tvItemPrice.setText(item.getPrice());
         tvItemDetail.setText(item.getDetail());
         tvItemViews.setText(String.valueOf(item.getItemView()));
         resIDs = item.getItemImage();
-        item.incrementViews();
 
         // CarouselView - Credits to Sayyam - https://github.com/sayyam/carouselview
         carouselView = (CarouselView) findViewById(R.id.carouselView);
@@ -58,4 +54,9 @@ public class DetailsActivity extends AppCompatActivity {
             imageView.setImageResource(resIDs[position]);
         }
     };
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }

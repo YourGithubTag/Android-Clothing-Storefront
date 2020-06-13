@@ -2,14 +2,16 @@ package com.example.apparelmarket;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.apparelmarket.models.ApparelProvider;
 
 import java.util.ArrayList;
 
@@ -26,81 +27,55 @@ public class MainActivity extends AppCompatActivity {
     public static final String ITEM_DETAIL_KEY = "item";
     CardView cvCategory1, cvCategory2, cvCategory3;
 
-    RecyclerView toppicksRecycle;
-    TopPicksAdapter topadapter;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ApparelProvider.generateData();
-        SessionClass.generateData();
 
         // Initialising ListView from activity_main.xml
         cvCategory1 = (CardView) findViewById(R.id.cvCategory1);
         cvCategory2 = (CardView) findViewById(R.id.cvCategory2);
         cvCategory3 = (CardView) findViewById(R.id.cvCategory3);
 
-        GridLayoutManager gm = new GridLayoutManager(this,3);
-        SessionClass.largestthree();
-        toppicksRecycle = (RecyclerView) findViewById(R.id.TopPicksView);
-        topadapter = new TopPicksAdapter();
-
-        toppicksRecycle.setLayoutManager(gm);
-        toppicksRecycle.setAdapter(topadapter);
-
-
         setupCategorySelectedListener();
-        setupTopPicksListener();
-    }
-
-    public void setupTopPicksListener() {
-        topadapter.setOnItemClickListner(new TopPicksAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-                intent.putExtra(ITEM_DETAIL_KEY, SessionClass.toppickarray.get(position).getId());
-                startActivity(intent);
-            }
-        });
-
     }
 
     public void setupCategorySelectedListener() {
-        // Sets OnClick Listener for ListView
-        // Sends String of query for catagory, to Display all of a certain catagory
+        // Sets OnClick Listener for ListView. Sends String of query for category, to Display all of a certain category.
         cvCategory1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent shirtsIntent = new Intent(MainActivity.this, ListActivity.class);
                 shirtsIntent.putExtra(ITEM_DETAIL_KEY, "Shirt");
                 startActivity(shirtsIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
         cvCategory2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent shirtsIntent = new Intent(MainActivity.this, ListActivity.class);
-                shirtsIntent.putExtra(ITEM_DETAIL_KEY, "Chinos");
-                startActivity(shirtsIntent);
+                Intent chinosIntent = new Intent(MainActivity.this, ListActivity.class);
+                chinosIntent.putExtra(ITEM_DETAIL_KEY, "Chinos");
+                startActivity(chinosIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
         cvCategory3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent shirtsIntent = new Intent(MainActivity.this, ListActivity.class);
-                shirtsIntent.putExtra(ITEM_DETAIL_KEY, "Shoes");
-                startActivity(shirtsIntent);
+                Intent shoesIntent = new Intent(MainActivity.this, ListActivity.class);
+                shoesIntent.putExtra(ITEM_DETAIL_KEY, "Shoes");
+                startActivity(shoesIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_activity, menu);
         final MenuItem searchItem = menu.findItem(R.id.action_search);
@@ -122,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 searchView.setIconified(true);
                 searchItem.collapseActionView();
 
-                //complete SearchActivity by yourself
+                // Creates an intent and sends the query to ListActivity for later use.
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
                 intent.putExtra(ITEM_DETAIL_KEY, query);
+                // Starts ListActivity.
                 startActivity(intent);
 
                 return true;
@@ -137,13 +113,5 @@ public class MainActivity extends AppCompatActivity {
         });
         return true;
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SessionClass.largestthree();
-        topadapter.notifyDataSetChanged();
-    }
-
 
 }

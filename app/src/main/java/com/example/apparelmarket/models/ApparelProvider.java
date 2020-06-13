@@ -1,10 +1,9 @@
 package com.example.apparelmarket.models;
 import com.example.apparelmarket.R;
+
 import java.util.ArrayList;
 
 public class ApparelProvider {
-
-    public static ArrayList<ApparelItem> dataArray = new ArrayList<ApparelItem>();
 
     static int[] itemViews = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
@@ -153,11 +152,13 @@ public class ApparelProvider {
             R.drawable.shoes_6_1, R.drawable.shoes_6_2, R.drawable.shoes_6_3, R.drawable.shoes_7_1, R.drawable.shoes_7_2, R.drawable.shoes_7_3, R.drawable.shoes_8_1, R.drawable.shoes_8_2, R.drawable.shoes_8_3, R.drawable.shoes_9_1, R.drawable.shoes_9_2, R.drawable.shoes_9_3, R.drawable.shoes_10_1, R.drawable.shoes_10_2, R.drawable.shoes_10_3
     };
 
+    // Increments the number of views for a given item - Simulated.
     public static void incrementItemViews(int position) {
         itemViews[position] = itemViews[position] + 1;
     }
 
-    public static void generateData() {
+    // Generates all the Apparel Item data and returns it as an array.
+    public static ArrayList<ApparelItem> generateData() {
         ArrayList<ApparelItem>  apparelItemslist = new ArrayList<ApparelItem>();
 
         for (int i = 0; i < 30; i++) {
@@ -169,6 +170,7 @@ public class ApparelProvider {
             int itemImageIN[] = new int[3];
             int itemViewIN = itemViews[i];
 
+            // Adds the appropriate images for each item.
             if(i == 0) {
                 itemImageIN[0] = itemImageAddrs[i];
                 itemImageIN[1] = itemImageAddrs[i+1];
@@ -182,100 +184,7 @@ public class ApparelProvider {
             ApparelItem ApparelItemIN = new ApparelItem(idIN, itemCategoryIN, itemPriceIN, itemNameIN, itemDetailIN, itemImageIN, itemViewIN);
             apparelItemslist.add(ApparelItemIN);
         }
-        dataArray = apparelItemslist;
-    }
-
-    public static ArrayList<ApparelItem> getShirtItems() {
-        ArrayList<ApparelItem>  shirtItemslist = new ArrayList<ApparelItem>();
-
-        for (int i = 0; i < 30; i++) {
-            if (itemCategories[i] == "Shirt") {
-                String idIN = itemIDs[i];
-                String itemCategoryIN = itemCategories[i];
-                String itemPriceIN = itemPrices[i];
-                String itemNameIN = itemNames[i];
-                String itemDetailIN = itemDetails[i];
-                int itemImageIN[] = new int[3];
-                int itemViewIN = itemViews[i];
-
-                if(i == 0) {
-                    itemImageIN[0] = itemImageAddrs[i];
-                    itemImageIN[1] = itemImageAddrs[i+1];
-                    itemImageIN[2] = itemImageAddrs[i+2];
-                } else {
-                    itemImageIN[0] = itemImageAddrs[3*i];
-                    itemImageIN[1] = itemImageAddrs[3*i+1];
-                    itemImageIN[2] = itemImageAddrs[3*i+2];
-                }
-
-                ApparelItem ApparelItemIN = new ApparelItem(idIN, itemCategoryIN, itemPriceIN, itemNameIN, itemDetailIN, itemImageIN, itemViewIN);
-                shirtItemslist.add(ApparelItemIN);
-            }
-        }
-
-        return shirtItemslist;
-    }
-
-    public static ArrayList<ApparelItem> getChinoItems() {
-        ArrayList<ApparelItem>  chinoItemslist = new ArrayList<ApparelItem>();
-
-        for (int i = 0; i < 30; i++) {
-            if (itemCategories[i] == "Chinos") {
-                String idIN = itemIDs[i];
-                String itemCategoryIN = itemCategories[i];
-                String itemPriceIN = itemPrices[i];
-                String itemNameIN = itemNames[i];
-                String itemDetailIN = itemDetails[i];
-                int itemImageIN[] = new int[3];
-                int itemViewIN = itemViews[i];
-
-                if(i == 0) {
-                    itemImageIN[0] = itemImageAddrs[i];
-                    itemImageIN[1] = itemImageAddrs[i+1];
-                    itemImageIN[2] = itemImageAddrs[i+2];
-                } else {
-                    itemImageIN[0] = itemImageAddrs[3*i];
-                    itemImageIN[1] = itemImageAddrs[3*i+1];
-                    itemImageIN[2] = itemImageAddrs[3*i+2];
-                }
-
-                ApparelItem ApparelItemIN = new ApparelItem(idIN, itemCategoryIN, itemPriceIN, itemNameIN, itemDetailIN, itemImageIN, itemViewIN);
-                chinoItemslist.add(ApparelItemIN);
-            }
-        }
-
-        return chinoItemslist;
-    }
-
-    public static ArrayList<ApparelItem> getShoeItems() {
-        ArrayList<ApparelItem>  shoeItemslist = new ArrayList<ApparelItem>();
-
-        for (int i = 0; i < 30; i++) {
-            if (itemCategories[i] == "Shoes") {
-                String idIN = itemIDs[i];
-                String itemCategoryIN = itemCategories[i];
-                String itemPriceIN = itemPrices[i];
-                String itemNameIN = itemNames[i];
-                String itemDetailIN = itemDetails[i];
-                int itemImageIN[] = new int[3];
-                int itemViewIN = itemViews[i];
-
-                if(i == 0) {
-                    itemImageIN[0] = itemImageAddrs[i];
-                    itemImageIN[1] = itemImageAddrs[i+1];
-                    itemImageIN[2] = itemImageAddrs[i+2];
-                } else {
-                    itemImageIN[0] = itemImageAddrs[3*i];
-                    itemImageIN[1] = itemImageAddrs[3*i+1];
-                    itemImageIN[2] = itemImageAddrs[3*i+2];
-                }
-
-                ApparelItem ApparelItemIN = new ApparelItem(idIN, itemCategoryIN, itemPriceIN, itemNameIN, itemDetailIN, itemImageIN, itemViewIN);
-                shoeItemslist.add(ApparelItemIN);
-            }
-        }
-
-        return shoeItemslist;
+        return apparelItemslist;
     }
 
 }

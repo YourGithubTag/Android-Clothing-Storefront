@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +16,8 @@ import com.example.apparelmarket.R;
 import java.util.ArrayList;
 
 public class ItemAdapter extends ArrayAdapter<ApparelItem> {
+
+    private int lastPosition = -1;
 
     private static class ViewHolder {
         // Variables for views created previously in the new book row layout.
@@ -56,6 +60,12 @@ public class ItemAdapter extends ArrayAdapter<ApparelItem> {
         viewHolder.ivItemImage.setImageResource(item.getItemImage()[0]);
         viewHolder.tvItemName.setText(item.getName());
         viewHolder.tvItemPrice.setText(item.getPrice());
+
+        // Animation - Scrolling items within the ListView
+        Animation animation = AnimationUtils.loadAnimation(getContext(), (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_bottom);
+        convertView.startAnimation(animation);
+
+        lastPosition = position;
 
         return convertView;
     }
