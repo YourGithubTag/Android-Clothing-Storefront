@@ -3,7 +3,7 @@ package com.example.apparelmarket;
 import java.util.ArrayList;
 
 public class ApparelItemProvider {
-    public static ArrayList<apparelItem> apparelItemslist ;
+    public static ArrayList<apparelItem> apparelItemslist = new ArrayList<apparelItem>();
 
     static String[] itemnames = {"Yeezies", "Louis V", "Fortnite Shirt","Light Up Shoes", "Tapout Vest", "Fedora", "Cargo Shorts", "Neckbeard",
             "Ahegao Shirt"};

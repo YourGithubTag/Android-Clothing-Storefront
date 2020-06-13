@@ -5,18 +5,57 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class SessionClass {
-   static ArrayList<apparelItem> toppickarray;
+   public static ArrayList<apparelItem> toppickarray = new ArrayList<apparelItem>();
 
-    public static void largestthree(ArrayList<apparelItem> arr) {
-        Collections.sort(arr, new Comparator<apparelItem>() {
-            @Override
-            public int compare(apparelItem o1, apparelItem o2) {
-                return o1.getViews() - o2.getViews();
+   public static void generateData() {
+       toppickarray.add(0,ApparelItemProvider.apparelItemslist.get(1));
+       toppickarray.add(1,ApparelItemProvider.apparelItemslist.get(2));
+       toppickarray.add(2,ApparelItemProvider.apparelItemslist.get(3));
+   }
+
+    public static void largestthree() {
+        int i, first, second, third;
+        int firstindex,secondindex,thirdindex;
+
+
+        third = first = second = Integer.MIN_VALUE;
+        firstindex = secondindex = thirdindex = 0;
+        for (i = 0; i < ApparelItemProvider.apparelItemslist.size() ; i ++)
+        {
+            /* If current element is greater than
+            first*/
+            if (ApparelItemProvider.apparelItemslist.get(i).getViews() > first)
+            {
+                third = second;
+                second = first;
+                first = ApparelItemProvider.apparelItemslist.get(i).getViews();
+
+                thirdindex = secondindex;
+                secondindex = firstindex;
+                firstindex = i;
+
             }
-        });
 
-        toppickarray.add(arr.get(0));
-        toppickarray.add(arr.get(1));
-        toppickarray.add(arr.get(2));
+            /* If arr[i] is in between first and
+            second then update second  */
+            else if (ApparelItemProvider.apparelItemslist.get(i).getViews() > second)
+            {
+                third = second;
+                second = ApparelItemProvider.apparelItemslist.get(i).getViews();
+
+                thirdindex = secondindex;
+                secondindex = i;
+
+            }
+
+            else if (ApparelItemProvider.apparelItemslist.get(i).getViews() > third)
+                third = ApparelItemProvider.apparelItemslist.get(i).getViews();
+                thirdindex = i;
+
+        }
+        toppickarray.set(2,ApparelItemProvider.apparelItemslist.get(thirdindex) );
+        toppickarray.set(1,ApparelItemProvider.apparelItemslist.get(secondindex) );
+        toppickarray.set(0,ApparelItemProvider.apparelItemslist.get(firstindex) );
+
     }
 }

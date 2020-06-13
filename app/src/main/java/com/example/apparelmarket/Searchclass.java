@@ -12,6 +12,11 @@ public class Searchclass {
                 toReturn.add(toSearch.get(i));
             }
         }
+        if (toReturn.isEmpty()) {
+           apparelItem notfound= new apparelItem("null","No results found", "null", "null", "null", R.drawable.b001, 1);
+           toReturn.add(notfound);
+        }
+
         return toReturn;
     }
 

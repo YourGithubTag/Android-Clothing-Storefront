@@ -25,11 +25,10 @@ public class SearchActivity extends AppCompatActivity {
 
         setContentView(R.layout.searchactivity);
 
-        ApparelItemProvider.generateData();
 
         Intent intent = getIntent();
         String query = intent.getStringExtra(MainActivity.ITEM_DETAIL_KEY);
-        Searchapparelitems = Searchclass.searchFunction(query, Searchapparelitems);
+        Searchapparelitems = Searchclass.searchFunction(query, ApparelItemProvider.apparelItemslist);
         /*if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Searchapparelitems = Searchclass.searchFunction(query, Searchapparelitems);

@@ -4,6 +4,7 @@ package com.example.apparelmarket;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
         ApparelItemProvider.generateData();
+        SessionClass.generateData();
 
         itemAdapter = new ItemAdapter(ApparelItemProvider.apparelItemslist);
         searchbutton = (TextView) findViewById(R.id.text_top_picks);
@@ -60,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
         itemAdapter.setOnItemClickListner(new ItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                apparelitems.get(position).changetext1("Clicked");
+                ApparelItemProvider.apparelItemslist.get(position).changetext1("Clicked");
                 itemAdapter.notifyItemChanged(position);
 
                 Intent intent = new Intent(MainActivity.this, item_detail.class);
-                intent.putExtra(ITEM_DETAIL_KEY, apparelitems.get(position));
+                intent.putExtra(ITEM_DETAIL_KEY, position);
                 startActivity(intent);
             }
         });
@@ -73,14 +75,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                intent.putExtra(ITEM_DETAIL_KEY, apparelitems);
+                intent.putExtra(ITEM_DETAIL_KEY, ApparelItemProvider.apparelItemslist);
                 startActivity(intent);
             }
         });
 
-        SessionClass.largestthree(ApparelItemProvider.apparelItemslist);
+        GridLayoutManager gm = new GridLayoutManager(this,3);
+        SessionClass.largestthree();
         toppicksRecycle = (RecyclerView) findViewById(R.id.toppicksRecycle);
-        topadapter = new TopPicksAdapter(SessionClass.toppickarray);
+        topadapter = new TopPicksAdapter();
+
+        toppicksRecycle.setLayoutManager(gm);
+        toppicksRecycle.setAdapter(topadapter);
+
+        topadapter.setOnItemClickListner(new TopPicksAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(MainActivity.this, item_detail.class);
+                intent.putExtra(ITEM_DETAIL_KEY, ApparelItemProvider.apparelItemslist.get(position));
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 
@@ -126,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SessionClass.largestthree(ApparelItemProvider.apparelItemslist);
+        SessionClass.largestthree();
         topadapter.notifyDataSetChanged();
     }
 }

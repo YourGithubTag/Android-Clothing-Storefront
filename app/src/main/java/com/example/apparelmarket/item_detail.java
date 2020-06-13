@@ -23,11 +23,14 @@ public class item_detail extends AppCompatActivity {
 
         Intent incoming = getIntent();
         // Use the book to populate the data into our views
-        apparelItem item = (apparelItem) incoming.getSerializableExtra(MainActivity.ITEM_DETAIL_KEY);
+        int itempos = incoming.getIntExtra(MainActivity.ITEM_DETAIL_KEY,0);
 
-        description.setText(item.getDescription());
-        category.setText(item.getCategory());
-        int resID = item.getitemImage();
+        description.setText(ApparelItemProvider.apparelItemslist.get(itempos).getDescription());
+        category.setText(ApparelItemProvider.apparelItemslist.get(itempos).getCategory());
+        int resID = ApparelItemProvider.apparelItemslist.get(itempos).getitemImage();
+
+        ApparelItemProvider.apparelItemslist.get(itempos).incrementViews();
+
         imagecover.setImageResource(resID);
     }
 

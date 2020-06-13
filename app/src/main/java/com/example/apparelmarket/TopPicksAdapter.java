@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.TopPickitemViewHolder> {
 
-    private ArrayList<apparelItem> listofitems;
+    private ArrayList<apparelItem> listofitems = new ArrayList<apparelItem>();
     private TopPicksAdapter.OnItemClickListener clickListener;
 
     public interface OnItemClickListener {
@@ -32,7 +32,7 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.TopPic
         public ImageView ivImage;
         public TextView  tvName;
 
-        public TopPickitemViewHolder(@NonNull View itemView, final TopPicksAdapter.OnItemClickListener passed) {
+        public TopPickitemViewHolder(@NonNull View itemView, final OnItemClickListener passed) {
             super(itemView);
             ivImage = itemView.findViewById(R.id.image_top_picks);
             tvName = itemView.findViewById(R.id.text_top_picks);
@@ -53,27 +53,27 @@ public class TopPicksAdapter extends RecyclerView.Adapter<TopPicksAdapter.TopPic
 
     @NonNull
     @Override
-    public TopPicksAdapter.TopPickitemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlistview, parent, false);
+    public TopPickitemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.toppicklistview, parent, false);
         TopPicksAdapter.TopPickitemViewHolder itemviews = new TopPicksAdapter.TopPickitemViewHolder(v, clickListener);
         return itemviews;
     }
 
-    public TopPicksAdapter(ArrayList<apparelItem> list) {
-        listofitems = list;
+    public TopPicksAdapter() {
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull TopPicksAdapter.TopPickitemViewHolder holder, int position) {
-        apparelItem currentItem = listofitems.get(position);
+        int resID =  SessionClass.toppickarray.get(position).getitemImage();
 
-        holder.ivImage.setImageResource(currentItem.getitemImage());
-        holder.tvName.setText(currentItem.getName());
+        holder.tvName.setText(SessionClass.toppickarray.get(position).getName());
+        holder.ivImage.setImageResource(resID);
     }
 
     @Override
     public int getItemCount() {
-        return listofitems.size();
+        return SessionClass.toppickarray.size();
     }
 
 
